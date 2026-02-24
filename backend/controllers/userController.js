@@ -3,10 +3,17 @@ const Leave = require('../models/Leave');
 
 // @desc    Get all users
 // @route   GET /api/users
-// @access  Private (Admin)
+// @access  Private (Admin/Employee)
 const getAllUsers = async (req, res) => {
     try {
-        const users = await User.find().select('-password').sort({ createdAt: -1 });
+        let filter = {};
+
+        // If employee is calling, they only see admins for chat purposes
+        if (req.user.role === 'employee') {
+            filter = { role: 'admin' };
+        }
+
+        const users = await User.find(filter).select('-password').sort({ createdAt: -1 });
         res.json({ users });
     } catch (error) {
         res.status(500).json({ message: 'Server error fetching users' });

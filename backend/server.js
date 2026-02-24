@@ -30,6 +30,8 @@ app.use(express.urlencoded({ extended: false }));
 // ─── Socket.io Setup ──────────────────────────────────────────────────────────
 const io = new Server(server, {
     cors: { origin: ALLOWED_ORIGINS, methods: ['GET', 'POST'], credentials: true },
+    pingTimeout: 60000, // 1 minute
+    pingInterval: 25000, // 25 seconds
 });
 
 // Middleware: authenticate socket connections via JWT

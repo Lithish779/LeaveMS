@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useChat } from '../context/ChatContext';
 import {
     LayoutDashboard,
     CalendarPlus,
@@ -9,11 +10,13 @@ import {
     LogOut,
     BarChart3,
     X,
+    MessageCircle,
 } from 'lucide-react';
 
 const ROLE_NAV = {
     employee: [
         { to: '/dashboard', label: 'Dashboard', Icon: LayoutDashboard },
+        { to: '/chat', label: 'Chat', Icon: MessageCircle, showBadge: true },
         { to: '/apply-leave', label: 'Apply Leave', Icon: CalendarPlus },
         { to: '/my-leaves', label: 'My Leaves', Icon: ClipboardList },
     ],
@@ -24,6 +27,7 @@ const ROLE_NAV = {
     ],
     admin: [
         { to: '/admin', label: 'Dashboard', Icon: LayoutDashboard },
+        { to: '/chat', label: 'Chat', Icon: MessageCircle, showBadge: true },
         { to: '/admin/users', label: 'Users', Icon: Users },
         { to: '/admin/leaves', label: 'All Leaves', Icon: BarChart3 },
         { to: '/admin/approvals', label: 'Approvals', Icon: CheckSquare },
@@ -38,6 +42,7 @@ const ROLE_COLORS = {
 
 const Sidebar = ({ open, onClose }) => {
     const { user, logout } = useAuth();
+    const { totalUnread } = useChat();
     const navigate = useNavigate();
     const navItems = ROLE_NAV[user?.role] || [];
 
@@ -108,18 +113,25 @@ const Sidebar = ({ open, onClose }) => {
 
                 {/* Nav links */}
                 <nav className="flex-1 px-3 py-4 space-y-1">
-                    {navItems.map(({ to, label, Icon }) => (
+                    {navItems.map(({ to, label, Icon, showBadge }) => (
                         <NavLink
                             key={to}
                             to={to}
                             end={to.split('/').length <= 2}
                             onClick={handleNavClick}
                             className={({ isActive }) =>
-                                `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`
+                                `sidebar-link ${isActive ? 'sidebar-link-active' : ''} flex items-center justify-between group`
                             }
                         >
-                            <Icon size={16} />
-                            {label}
+                            <div className="flex items-center gap-3">
+                                <Icon size={16} />
+                                {label}
+                            </div>
+                            {showBadge && totalUnread > 0 && (
+                                <span className="h-5 w-5 bg-indigo-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center border border-indigo-500 group-hover:border-indigo-400 transition-colors">
+                                    {totalUnread > 9 ? '9+' : totalUnread}
+                                </span>
+                            )}
                         </NavLink>
                     ))}
                 </nav>

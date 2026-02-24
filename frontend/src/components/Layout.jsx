@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
+import ChatPanel from '../components/ChatPanel';
 
 const Layout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -32,6 +33,9 @@ const Layout = () => {
                     <Outlet />
                 </main>
             </div>
+
+            {/* Global floating chat */}
+            <ChatPanel />
         </div>
     );
 };

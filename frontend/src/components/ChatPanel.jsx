@@ -12,8 +12,8 @@ const Bubble = ({ message, isOwn }) => (
     <div className={`flex ${isOwn ? 'justify-end' : 'justify-start'} mb-1.5`}>
         <div
             className={`max-w-[75%] px-3.5 py-2 rounded-2xl text-sm leading-relaxed ${isOwn
-                    ? 'bg-indigo-600 text-white rounded-br-sm'
-                    : 'bg-slate-700 text-slate-100 rounded-bl-sm'
+                ? 'bg-indigo-600 text-white rounded-br-sm'
+                : 'bg-slate-700 text-slate-100 rounded-bl-sm'
                 }`}
         >
             <p>{message.content}</p>
@@ -25,7 +25,7 @@ const Bubble = ({ message, isOwn }) => (
 );
 
 // ── Message Thread ────────────────────────────────────────────────────────────
-const MessageThread = ({ partnerId, partnerName, onBack }) => {
+export const MessageThread = ({ partnerId, partnerName, onBack }) => {
     const { user } = useAuth();
     const { messages, sendMessage, loadHistory, markRead, onlineUsers } = useChat();
     const [input, setInput] = useState('');
@@ -120,7 +120,7 @@ const MessageThread = ({ partnerId, partnerName, onBack }) => {
 };
 
 // ── Admin Inbox List ──────────────────────────────────────────────────────────
-const AdminInbox = ({ onSelectConversation }) => {
+export const AdminInbox = ({ onSelectConversation }) => {
     const { unreadCounts, onlineUsers } = useChat();
     const [conversations, setConversations] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -204,21 +204,23 @@ const ChatPanel = () => {
     const { user } = useAuth();
     const { totalUnread } = useChat();
     const [open, setOpen] = useState(false);
-    // For employee: adminUser fetched once; for admin: selectedPartner from inbox
-    const [adminUser, setAdminUser] = useState(null);
+    const [admins, setAdmins] = useState([]);
     const [selectedPartner, setSelectedPartner] = useState(null);
+    const [loading, setLoading] = useState(false);
 
-    // Fetch admin user for employee view
+    // Fetch admins for employee view
     useEffect(() => {
-        if (user?.role === 'employee') {
+        if (user?.role === 'employee' && open) {
+            setLoading(true);
             api.get('/users').then(({ data }) => {
-                const admin = data.users?.find((u) => u.role === 'admin');
-                if (admin) setAdminUser(admin);
-            }).catch(() => { });
+                const foundAdmins = data.users?.filter((u) => u.role === 'admin') || [];
+                setAdmins(foundAdmins);
+                if (foundAdmins.length === 1 && !selectedPartner) {
+                    setSelectedPartner(foundAdmins[0]);
+                }
+            }).catch(() => { }).finally(() => setLoading(false));
         }
-    }, [user]);
-
-    const partner = user?.role === 'employee' ? adminUser : selectedPartner;
+    }, [user, open, selectedPartner]);
 
     return (
         <>
@@ -262,17 +264,44 @@ const ChatPanel = () => {
                             <div className="h-full overflow-y-auto">
                                 <AdminInbox onSelectConversation={(u) => setSelectedPartner(u)} />
                             </div>
-                        ) : partner ? (
+                        ) : selectedPartner ? (
                             // Conversation thread
                             <MessageThread
-                                partnerId={String(partner._id)}
-                                partnerName={partner.name}
-                                onBack={user?.role === 'admin' ? () => setSelectedPartner(null) : undefined}
+                                partnerId={String(selectedPartner._id)}
+                                partnerName={selectedPartner.name}
+                                onBack={() => setSelectedPartner(null)}
                             />
+                        ) : user?.role === 'employee' ? (
+                            // Employee picking admin
+                            <div className="h-full overflow-y-auto">
+                                <div className="p-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                    Select Admin
+                                </div>
+                                {admins.map((admin) => (
+                                    <button
+                                        key={admin._id}
+                                        onClick={() => setSelectedPartner(admin)}
+                                        className="flex items-center gap-3 px-4 py-3 hover:bg-slate-700/40 transition-colors text-left w-full"
+                                    >
+                                        <div className="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xs font-semibold">
+                                            {admin.name?.charAt(0).toUpperCase()}
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-medium text-slate-100 truncate">{admin.name}</p>
+                                        </div>
+                                    </button>
+                                ))}
+                                {admins.length === 0 && !loading && (
+                                    <div className="flex flex-col items-center justify-center h-full p-8 text-slate-500 text-sm gap-2">
+                                        <MessageCircle size={24} className="text-slate-600" />
+                                        <p>No admins found.</p>
+                                    </div>
+                                )}
+                            </div>
                         ) : (
                             <div className="flex flex-col items-center justify-center h-full text-slate-500 text-sm gap-2">
                                 <MessageCircle size={28} className="text-slate-600" />
-                                <p>No admin found yet.</p>
+                                <p>Select a contact.</p>
                             </div>
                         )}
                     </div>

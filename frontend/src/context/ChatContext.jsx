@@ -19,12 +19,19 @@ export const ChatProvider = ({ children }) => {
     const totalUnread = Object.values(unreadCounts).reduce((a, b) => a + b, 0);
 
     // Connect socket when user is logged in
+    const userId = user?._id;
+
     useEffect(() => {
-        if (!user || !token) return;
+        if (!userId || !token) return;
 
         const socket = io(import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000', {
             auth: { token },
-            transports: ['websocket', 'polling'],
+            transports: ['websocket'], // Use WebSocket-only for stability
+            reconnection: true,
+            reconnectionAttempts: Infinity,
+            reconnectionDelay: 1000,
+            reconnectionDelayMax: 5000,
+            timeout: 20000,
         });
 
         socketRef.current = socket;
@@ -34,7 +41,7 @@ export const ChatProvider = ({ children }) => {
         });
 
         socket.on('receive_message', (message) => {
-            const partnerId = String(message.sender._id) === String(user._id)
+            const partnerId = String(message.sender._id) === String(userId)
                 ? String(message.receiver._id)
                 : String(message.sender._id);
 
@@ -44,7 +51,7 @@ export const ChatProvider = ({ children }) => {
             }));
 
             // Increment unread if the message is FROM someone else
-            if (String(message.sender._id) !== String(user._id)) {
+            if (String(message.sender._id) !== String(userId)) {
                 setUnreadCounts((prev) => ({
                     ...prev,
                     [String(message.sender._id)]: (prev[String(message.sender._id)] || 0) + 1,
@@ -52,8 +59,8 @@ export const ChatProvider = ({ children }) => {
             }
         });
 
-        socket.on('user_status', ({ userId, online }) => {
-            setOnlineUsers((prev) => ({ ...prev, [userId]: online }));
+        socket.on('user_status', ({ userId: statusUserId, online }) => {
+            setOnlineUsers((prev) => ({ ...prev, [statusUserId]: online }));
         });
 
         socket.on('messages_read', ({ by }) => {
@@ -68,7 +75,7 @@ export const ChatProvider = ({ children }) => {
             socket.disconnect();
             socketRef.current = null;
         };
-    }, [user, token]);
+    }, [userId, token]);
 
     // Load message history from REST API for a given partner
     const loadHistory = useCallback(async (partnerId) => {
