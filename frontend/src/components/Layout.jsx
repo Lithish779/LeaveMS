@@ -8,12 +8,12 @@ const Layout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
-        <div className="flex min-h-screen bg-slate-950">
+        <div className="flex min-h-screen bg-main text-primary">
             <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
             <div className="flex-1 flex flex-col min-w-0">
                 {/* Mobile top bar */}
-                <header className="lg:hidden sticky top-0 z-10 flex items-center gap-3 px-4 py-3 bg-slate-900/80 backdrop-blur border-b border-slate-800">
+                <header className="lg:hidden sticky top-0 z-10 flex items-center gap-3 px-4 py-3 bg-card backdrop-blur border-b border-slate-800">
                     <button
                         onClick={() => setSidebarOpen(true)}
                         className="text-slate-400 hover:text-white p-1.5 rounded-md hover:bg-slate-800 transition-colors"
@@ -25,7 +25,7 @@ const Layout = () => {
                         <div className="h-6 w-6 rounded bg-indigo-600 flex items-center justify-center text-white font-bold text-xs">
                             LM
                         </div>
-                        <span className="text-white font-semibold text-sm">LeaveMS</span>
+                        <span className="text-primary font-semibold text-sm">LeaveMS</span>
                     </div>
                 </header>
 

@@ -1,6 +1,124 @@
 @import "tailwindcss";
 
 @layer base {
+  :root {
+    --bg-main: #f1f5f9;
+    --bg-card: #ffffff;
+    --bg-input: #ffffff;
+    --text-primary: #334155;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --text-heading: #020617;
+    --border-color: #e2e8f0;
+    --ring-offset: #ffffff;
+    --sidebar-bg: #ffffff;
+    --sidebar-text: #64748b;
+    --sidebar-hover: #f1f5f9;
+    --sidebar-link-text: #020617;
+    --accent-blue: #2563eb;
+    --text-user-name: #2563eb;
+
+    /* Stat Card Colors (Light Mode) */
+    --stat-card-bg-1: #ff7675;
+    --stat-card-bg-2: #55efc4;
+    --stat-card-bg-3: #ffeaa7;
+
+    /* Global Accent */
+    --accent-primary: #2563eb;
+    --accent-glow: rgba(37, 99, 235, 0.1);
+    --accent-border: rgba(37, 99, 235, 0.2);
+    --border-main: #e2e8f0;
+
+    /* Leave Type Colors (Light Mode - Vibrant Pastel) */
+    --badge-annual-bg: #eff6ff;
+    --badge-annual-text: #2563eb;
+    --badge-annual-border: #dbeafe;
+
+    --badge-sick-bg: #fff1f2;
+    --badge-sick-text: #e11d48;
+    --badge-sick-border: #ffe4e6;
+
+    --badge-casual-bg: #faf5ff;
+    --badge-casual-text: #7c3aed;
+    --badge-casual-border: #f3e8ff;
+
+    --badge-unpaid-bg: #f8fafc;
+    --badge-unpaid-text: #475569;
+    --badge-unpaid-border: #f1f5f9;
+
+    --badge-earned-bg: #f0fdf4;
+    --badge-earned-text: #16a34a;
+    --badge-earned-border: #dcfce7;
+
+    --badge-maternity-bg: #fdf4ff;
+    --badge-maternity-text: #c026d3;
+    --badge-maternity-border: #fae8ff;
+
+    --badge-paternity-bg: #ecfeff;
+    --badge-paternity-text: #0891b2;
+    --badge-paternity-border: #cffafe;
+  }
+
+  .dark {
+    --bg-main: #020617;
+    --bg-card: #0f172a;
+    --bg-input: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --text-heading: #ffffff;
+    --border-color: #1e293b;
+    --ring-offset: #020617;
+    --sidebar-bg: #0f172a;
+    --sidebar-text: #94a3b8;
+    --sidebar-hover: #1e293b;
+    --sidebar-link-text: #ffffff;
+    --text-user-name: #f1f5f9;
+
+    /* Restore Indigo for Dark Mode */
+    --accent-primary: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.1);
+    --accent-border: rgba(99, 102, 241, 0.2);
+
+    /* Stat Card Colors (Dark Mode Original Style) */
+    --stat-card-bg-1: #4f46e5;
+    /* Indigo 600 */
+    --stat-card-bg-2: #037551;
+    /* Emerald 600 */
+    --stat-card-bg-3: #d97706;
+    /* Amber 600 */
+    --border-main: #1e293b;
+
+    /* Leave Type Colors (Dark Mode - Vibrant Glow) */
+    --badge-annual-bg: rgba(37, 99, 235, 0.1);
+    --badge-annual-text: #60a5fa;
+    --badge-annual-border: rgba(37, 99, 235, 0.2);
+
+    --badge-sick-bg: rgba(225, 29, 72, 0.1);
+    --badge-sick-text: #fb7185;
+    --badge-sick-border: rgba(225, 29, 72, 0.2);
+
+    --badge-casual-bg: rgba(124, 58, 237, 0.1);
+    --badge-casual-text: #a78bfa;
+    --badge-casual-border: rgba(124, 58, 237, 0.2);
+
+    --badge-unpaid-bg: rgba(71, 85, 105, 0.1);
+    --badge-unpaid-text: #94a3b8;
+    --badge-unpaid-border: rgba(71, 85, 105, 0.2);
+
+    --badge-earned-bg: rgba(22, 163, 74, 0.1);
+    --badge-earned-text: #4ade80;
+    --badge-earned-border: rgba(22, 163, 74, 0.2);
+
+    --badge-maternity-bg: rgba(192, 38, 211, 0.1);
+    --badge-maternity-text: #e879f9;
+    --badge-maternity-border: rgba(192, 38, 211, 0.2);
+
+    --badge-paternity-bg: rgba(8, 145, 178, 0.1);
+    --badge-paternity-text: #22d3ee;
+    --badge-paternity-border: rgba(8, 145, 178, 0.2);
+  }
+
   * {
     box-sizing: border-box;
     margin: 0;
@@ -8,8 +126,43 @@
   }
 
   body {
-    @apply bg-slate-950 text-slate-100 font-sans antialiased;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    @apply transition-colors duration-200 antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--text-heading);
+    @apply transition-colors duration-200;
+  }
+
+  table {
+    @apply w-full border-collapse;
+  }
+
+  th {
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-main);
+    @apply font-semibold;
+  }
+
+  td {
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-main);
+  }
+
+  tr {
+    @apply transition-colors duration-200;
+  }
+
+  tr:hover {
+    background-color: var(--bg-main);
   }
 
   ::-webkit-scrollbar {
@@ -17,65 +170,216 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-slate-900;
+    background-color: var(--bg-main);
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-slate-600 rounded-full;
+    @apply bg-slate-600 rounded-full dark:bg-slate-700;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-slate-500;
+    @apply bg-slate-500 dark:bg-slate-600;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 px-5 rounded-lg transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900;
+    background-color: var(--accent-primary);
+    @apply text-white font-semibold py-2.5 px-5 rounded-lg transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2;
+    border-color: transparent;
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.1);
   }
 
   .btn-secondary {
-    @apply bg-slate-700 hover:bg-slate-600 text-white font-semibold py-2.5 px-5 rounded-lg transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-900;
+    @apply bg-slate-700 hover:bg-slate-600 text-white font-semibold py-2.5 px-5 rounded-lg transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2;
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
   }
 
-  .btn-success {
-    @apply bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 px-5 rounded-lg transition-all duration-200 active:scale-95;
-  }
-
-  .btn-danger {
-    @apply bg-rose-600 hover:bg-rose-500 text-white font-semibold py-2.5 px-5 rounded-lg transition-all duration-200 active:scale-95;
+  .dark .btn-secondary {
+    @apply bg-slate-700 hover:bg-slate-600 text-white border-transparent;
   }
 
   .card {
-    @apply bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-lg;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    @apply rounded-xl p-6 shadow-sm transition-colors duration-200;
   }
 
   .input-field {
-    @apply w-full bg-slate-800 border border-slate-700 text-slate-100 placeholder-slate-400 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    @apply w-full rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200;
   }
 
-  .badge-pending {
-    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30;
-  }
-
-  .badge-approved {
-    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30;
-  }
-
-  .badge-rejected {
-    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-500/20 text-rose-400 border border-rose-500/30;
+  .input-field::placeholder {
+    color: var(--text-muted);
   }
 
   .sidebar-link {
-    @apply flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-200 font-medium text-sm;
+    @apply flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 font-medium text-sm;
+    color: var(--sidebar-text);
+  }
+
+  .sidebar-link:hover {
+    color: var(--sidebar-link-text);
+    background-color: var(--sidebar-hover);
   }
 
   .sidebar-link-active {
-    @apply bg-indigo-600/20 text-indigo-400 border border-indigo-500/30;
+    background-color: var(--accent-glow);
+    color: var(--accent-primary);
+    border: 1px solid var(--accent-border);
   }
 
-  /* Responsive inner page padding */
   .page-content {
     @apply p-4 sm:p-6 space-y-6;
+  }
+
+  /* Badge Styles - Pastel for Light, Glow for Dark */
+  .badge-pending {
+    @apply px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 border;
+    background-color: #fef3c7;
+    color: #92400e;
+    border-color: #fde68a;
+  }
+
+  .badge-approved {
+    @apply px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 border;
+    background-color: #d1fae5;
+    color: #065f46;
+    border-color: #a7f3d0;
+  }
+
+  .badge-rejected {
+    @apply px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 border;
+    background-color: #fee2e2;
+    color: #991b1b;
+    border-color: #fecaca;
+  }
+
+  /* Dark mode overrides for badges */
+  .dark .badge-pending {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #fbbf24;
+    border-color: rgba(245, 158, 11, 0.2);
+  }
+
+  .dark .badge-approved {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #34d399;
+    border-color: rgba(16, 185, 129, 0.2);
+  }
+
+  .dark .badge-rejected {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border-color: rgba(239, 68, 68, 0.2);
+  }
+
+  /* Theme Utility Classes */
+  .bg-main {
+    background-color: var(--bg-main);
+  }
+
+  .bg-sidebar {
+    background-color: var(--sidebar-bg);
+  }
+
+  .bg-card {
+    background-color: var(--bg-card);
+  }
+
+  .text-primary {
+    color: var(--text-primary);
+  }
+
+  .text-heading {
+    color: var(--text-heading);
+  }
+
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+
+  .text-muted {
+    color: var(--text-muted);
+  }
+
+  .text-user-name {
+    color: var(--text-user-name);
+  }
+
+  .border-main {
+    border-color: var(--border-main);
+  }
+
+  .divide-main>*+* {
+    border-color: var(--border-main);
+  }
+
+  /* Stat Card Utilities */
+  .bg-stat-1 {
+    background-color: var(--stat-card-bg-1);
+  }
+
+  .bg-stat-2 {
+    background-color: var(--stat-card-bg-2);
+  }
+
+  .bg-stat-3 {
+    background-color: var(--stat-card-bg-3);
+  }
+
+  /* Leave Type Tag Utilities */
+  .leave-tag {
+    @apply px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border;
+  }
+
+  .leave-tag-annual {
+    background-color: var(--badge-annual-bg);
+    color: var(--badge-annual-text);
+    border-color: var(--badge-annual-border);
+  }
+
+  .leave-tag-sick {
+    background-color: var(--badge-sick-bg);
+    color: var(--badge-sick-text);
+    border-color: var(--badge-sick-border);
+  }
+
+  .leave-tag-casual {
+    background-color: var(--badge-casual-bg);
+    color: var(--badge-casual-text);
+    border-color: var(--badge-casual-border);
+  }
+
+  .leave-tag-unpaid {
+    background-color: var(--badge-unpaid-bg);
+    color: var(--badge-unpaid-text);
+    border-color: var(--badge-unpaid-border);
+  }
+
+  .leave-tag-earned {
+    background-color: var(--badge-earned-bg);
+    color: var(--badge-earned-text);
+    border-color: var(--badge-earned-border);
+  }
+
+  .leave-tag-maternity {
+    background-color: var(--badge-maternity-bg);
+    color: var(--badge-maternity-text);
+    border-color: var(--badge-maternity-border);
+  }
+
+  .leave-tag-paternity {
+    background-color: var(--badge-paternity-bg);
+    color: var(--badge-paternity-text);
+    border-color: var(--badge-paternity-border);
   }
 }

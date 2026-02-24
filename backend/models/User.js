@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema(
         },
         role: {
             type: String,
-            enum: ['employee', 'manager', 'admin'],
+            enum: ['employee', 'manager', 'admin', 'finance'],
             default: 'employee',
         },
         department: {
@@ -34,6 +34,21 @@ const userSchema = new mongoose.Schema(
         isActive: {
             type: Boolean,
             default: true,
+        },
+        leaveBalances: {
+            SL: { type: Number, default: 12 },
+            CL: { type: Number, default: 12 },
+            EL: { type: Number, default: 15 },
+            ML: { type: Number, default: 0 },
+            PL: { type: Number, default: 0 }
+        },
+        lastLeaveDate: {
+            type: Date,
+            default: null
+        },
+        joiningDate: {
+            type: Date,
+            default: Date.now
         },
     },
     { timestamps: true }

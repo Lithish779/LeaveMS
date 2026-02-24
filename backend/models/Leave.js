@@ -9,7 +9,7 @@ const leaveSchema = new mongoose.Schema(
         },
         leaveType: {
             type: String,
-            enum: ['Annual', 'Sick', 'Casual', 'Unpaid'],
+            enum: ['Annual', 'Sick', 'Casual', 'Unpaid', 'Earned', 'Maternity', 'Paternity'],
             required: [true, 'Leave type is required'],
         },
         startDate: {
@@ -26,9 +26,13 @@ const leaveSchema = new mongoose.Schema(
             trim: true,
             maxlength: [500, 'Reason cannot exceed 500 characters'],
         },
+        attachment: {
+            type: String, // URL for S3/Cloudinary
+            default: null,
+        },
         status: {
             type: String,
-            enum: ['Pending', 'Approved', 'Rejected'],
+            enum: ['Pending', 'PendingHR', 'Approved', 'Rejected', 'Cancelled'],
             default: 'Pending',
         },
         reviewedBy: {

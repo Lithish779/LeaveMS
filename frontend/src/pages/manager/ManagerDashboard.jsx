@@ -13,8 +13,8 @@ const StatCard = ({ label, value, icon: Icon, color }) => (
             <Icon size={20} className="text-white" />
         </div>
         <div>
-            <p className="text-slate-400 text-sm">{label}</p>
-            <p className="text-2xl font-bold text-white">{value}</p>
+            <p className="text-secondary text-sm">{label}</p>
+            <p className="text-2xl font-bold text-primary">{value}</p>
         </div>
     </div>
 );
@@ -57,11 +57,11 @@ const ManagerDashboard = () => {
             {/* Header */}
             <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                        <CheckSquare size={22} className="text-blue-400" />
+                    <h1 className="text-2xl font-bold text-heading flex items-center gap-2">
+                        <CheckSquare size={22} className="text-blue-500" />
                         Manager Dashboard
                     </h1>
-                    <p className="text-slate-400 mt-0.5">Welcome back, {user?.name}. Here's your team overview.</p>
+                    <p className="text-secondary mt-0.5">Welcome back, {user?.name}. Here's your team overview.</p>
                 </div>
                 <Link to="/manager/approvals" className="btn-primary flex items-center gap-2 text-sm">
                     <Clock size={14} />
@@ -80,8 +80,8 @@ const ManagerDashboard = () => {
             {/* Recent Pending */}
             <div>
                 <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-lg font-semibold text-white">Awaiting Review</h2>
-                    <Link to="/manager/approvals" className="text-indigo-400 hover:text-indigo-300 text-sm transition-colors">
+                    <h2 className="text-lg font-semibold text-heading">Awaiting Review</h2>
+                    <Link to="/manager/approvals" className="text-blue-500 hover:underline text-sm transition-colors">
                         View all →
                     </Link>
                 </div>
@@ -91,8 +91,8 @@ const ManagerDashboard = () => {
                 ) : recentPending.length === 0 ? (
                     <div className="card text-center py-10">
                         <CheckCircle size={32} className="text-emerald-500/40 mx-auto mb-3" />
-                        <p className="text-slate-300 font-semibold">All clear!</p>
-                        <p className="text-slate-500 text-sm mt-1">No pending leave requests.</p>
+                        <p className="text-primary font-semibold">All clear!</p>
+                        <p className="text-secondary text-sm mt-1">No pending leave requests.</p>
                     </div>
                 ) : (
                     <div className="space-y-3">

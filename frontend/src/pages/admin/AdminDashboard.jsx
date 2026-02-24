@@ -19,8 +19,8 @@ const StatCard = ({ label, value, icon: Icon, bg, text }) => (
             <Icon size={20} className={text} />
         </div>
         <div>
-            <p className="text-slate-400 text-sm">{label}</p>
-            <p className="text-2xl font-bold text-white">{value}</p>
+            <p className="text-secondary text-sm">{label}</p>
+            <p className="text-2xl font-bold text-primary">{value}</p>
         </div>
     </div>
 );
@@ -83,10 +83,10 @@ const AdminDashboard = () => {
         <div className="p-6 space-y-6">
             <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                        <Shield size={22} className="text-purple-400" /> Admin Dashboard
+                    <h1 className="text-2xl font-bold text-heading flex items-center gap-2">
+                        <Shield size={22} className="text-purple-500" /> Admin Dashboard
                     </h1>
-                    <p className="text-slate-400 mt-0.5">Welcome back, {user?.name}. System overview.</p>
+                    <p className="text-secondary mt-0.5">Welcome back, {user?.name}. System overview.</p>
                 </div>
                 <div className="flex gap-2 flex-wrap">
                     <Link to="/admin/users" className="btn-secondary text-sm flex items-center gap-2">
@@ -110,7 +110,7 @@ const AdminDashboard = () => {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div className="card">
-                            <h3 className="text-slate-300 font-semibold mb-4">Leave Status Overview</h3>
+                            <h3 className="text-heading font-semibold mb-4">Leave Status Overview</h3>
                             {totalLeaves > 0 ? (
                                 <div className="max-w-[220px] mx-auto">
                                     <Doughnut data={doughnutData} options={{
@@ -122,10 +122,10 @@ const AdminDashboard = () => {
                         </div>
 
                         <div className="card">
-                            <h3 className="text-slate-300 font-semibold mb-4">Requests by Leave Type</h3>
+                            <h3 className="text-heading font-semibold mb-4">Requests by Leave Type</h3>
                             {stats.typeStats.length > 0 ? (
                                 <Bar data={barData} options={barOptions} />
-                            ) : <p className="text-slate-500 text-center py-8">No leave data yet</p>}
+                            ) : <p className="text-muted text-center py-8">No leave data yet</p>}
                         </div>
                     </div>
                 </>

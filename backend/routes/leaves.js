@@ -6,6 +6,7 @@ const {
     getPendingLeaves,
     getAllLeaves,
     reviewLeave,
+    bulkReview,
     cancelLeave,
     getLeaveStats,
 } = require('../controllers/leaveController');
@@ -13,13 +14,19 @@ const { protect, authorize } = require('../middleware/auth');
 
 const router = express.Router();
 
+// Bulk action
+router.put('/bulk-review', protect, authorize('manager', 'admin'), bulkReview);
+
+const upload = require('../middleware/upload');
+
 // Employee routes
 router.post(
     '/',
     protect,
+    upload.single('attachment'),
     [
         body('leaveType')
-            .isIn(['Annual', 'Sick', 'Casual', 'Unpaid'])
+            .isIn(['Annual', 'Sick', 'Casual', 'Unpaid', 'Earned', 'Maternity', 'Paternity'])
             .withMessage('Invalid leave type'),
         body('startDate').isISO8601().withMessage('Valid start date required'),
         body('endDate').isISO8601().withMessage('Valid end date required'),

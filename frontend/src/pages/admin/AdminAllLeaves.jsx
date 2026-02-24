@@ -32,18 +32,18 @@ const AdminAllLeaves = () => {
         <div className="p-6 space-y-6">
             <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                        <ClipboardList size={22} className="text-indigo-400" /> All Leave Records
+                    <h1 className="text-2xl font-bold text-heading flex items-center gap-2">
+                        <ClipboardList size={22} className="text-blue-500" /> All Leave Records
                     </h1>
-                    <p className="text-slate-400 mt-0.5">{leaves.length} total records</p>
+                    <p className="text-secondary mt-0.5">{leaves.length} total records</p>
                 </div>
-                <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-lg p-1">
-                    <Filter size={13} className="text-slate-500 ml-1" />
+                <div className="flex items-center gap-1.5 bg-input border border-main rounded-lg p-1">
+                    <Filter size={13} className="text-muted ml-1" />
                     {STATUS_FILTERS.map((s) => (
                         <button
                             key={s}
                             onClick={() => setFilter(s)}
-                            className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${filter === s ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'
+                            className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${filter === s ? 'bg-blue-600 text-white shadow-sm' : 'text-secondary hover:text-primary'
                                 }`}
                         >
                             {s}
@@ -54,8 +54,8 @@ const AdminAllLeaves = () => {
 
             {loading ? <LoadingSpinner /> : filtered.length === 0 ? (
                 <div className="card text-center py-12">
-                    <ClipboardList size={36} className="text-slate-700 mx-auto mb-3" />
-                    <p className="text-slate-400">No records found for this filter.</p>
+                    <ClipboardList size={36} className="text-muted mx-auto mb-3" />
+                    <p className="text-secondary">No records found for this filter.</p>
                 </div>
             ) : (
                 <div className="space-y-3">

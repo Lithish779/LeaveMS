@@ -26,14 +26,14 @@ const ReviewModal = ({ leave, onClose, onReview }) => {
 
     return (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-            <div className="card w-full max-w-md border-slate-700">
-                <h3 className="text-lg font-bold text-white mb-4">Review Leave Request</h3>
+            <div className="card w-full max-w-md border-main">
+                <h3 className="text-lg font-bold text-primary mb-4">Review Leave Request</h3>
                 <div className="grid grid-cols-2 gap-3 mb-4">
                     <button
                         onClick={() => setStatus('Approved')}
                         className={`flex items-center justify-center gap-2 py-2.5 rounded-lg border text-sm font-semibold transition-all ${status === 'Approved'
-                                ? 'border-emerald-500 bg-emerald-500/15 text-emerald-400'
-                                : 'border-slate-700 text-slate-400 hover:border-slate-600'
+                            ? 'border-emerald-500 bg-emerald-500/15 text-emerald-400'
+                            : 'border-slate-700 text-slate-400 hover:border-slate-600'
                             }`}
                     >
                         <CheckCircle size={15} /> Approve
@@ -41,8 +41,8 @@ const ReviewModal = ({ leave, onClose, onReview }) => {
                     <button
                         onClick={() => setStatus('Rejected')}
                         className={`flex items-center justify-center gap-2 py-2.5 rounded-lg border text-sm font-semibold transition-all ${status === 'Rejected'
-                                ? 'border-rose-500 bg-rose-500/15 text-rose-400'
-                                : 'border-slate-700 text-slate-400 hover:border-slate-600'
+                            ? 'border-rose-500 bg-rose-500/15 text-rose-400'
+                            : 'border-slate-700 text-slate-400 hover:border-slate-600'
                             }`}
                     >
                         <XCircle size={15} /> Reject
@@ -96,10 +96,10 @@ const AdminApprovals = () => {
     return (
         <div className="p-6 space-y-6">
             <div>
-                <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                    <CheckSquare size={22} className="text-indigo-400" /> Pending Approvals
+                <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
+                    <CheckSquare size={22} className="text-blue-500" /> Pending Approvals
                 </h1>
-                <p className="text-slate-400 mt-0.5">{leaves.length} request{leaves.length !== 1 ? 's' : ''} awaiting review</p>
+                <p className="text-secondary mt-0.5">{leaves.length} request{leaves.length !== 1 ? 's' : ''} awaiting review</p>
             </div>
 
             {loading ? <LoadingSpinner /> : leaves.length === 0 ? (

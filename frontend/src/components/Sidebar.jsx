@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useChat } from '../context/ChatContext';
+import { useTheme } from '../context/ThemeContext';
 import {
     LayoutDashboard,
     CalendarPlus,
@@ -11,6 +12,12 @@ import {
     BarChart3,
     X,
     MessageCircle,
+    CalendarDays, // Added
+    History,      // Added
+    IndianRupee,  // Added
+    FileText,    // Added
+    Sun,
+    Moon,
 } from 'lucide-react';
 
 const ROLE_NAV = {
@@ -19,11 +26,21 @@ const ROLE_NAV = {
         { to: '/chat', label: 'Chat', Icon: MessageCircle, showBadge: true },
         { to: '/apply-leave', label: 'Apply Leave', Icon: CalendarPlus },
         { to: '/my-leaves', label: 'My Leaves', Icon: ClipboardList },
+        { to: '/reimbursements', label: 'Expenses', Icon: IndianRupee },
     ],
     manager: [
         { to: '/manager', label: 'Dashboard', Icon: LayoutDashboard },
         { to: '/manager/approvals', label: 'Approvals', Icon: CheckSquare },
+        { to: '/approvals/reimbursements', label: 'Expense Approvals', Icon: FileText },
+        { to: '/all-expenses', label: 'Expense History', Icon: History },
         { to: '/manager/all-leaves', label: 'All Leaves', Icon: ClipboardList },
+        { to: '/manager/calendar', label: 'Team Calendar', Icon: CalendarDays },
+    ],
+    finance: [
+        { to: '/dashboard', label: 'My Dashboard', Icon: LayoutDashboard },
+        { to: '/approvals/reimbursements', label: 'Expense Approvals', Icon: FileText },
+        { to: '/all-expenses', label: 'Expense History', Icon: History },
+        { to: '/chat', label: 'Chat', Icon: MessageCircle, showBadge: true },
     ],
     admin: [
         { to: '/admin', label: 'Dashboard', Icon: LayoutDashboard },
@@ -31,18 +48,23 @@ const ROLE_NAV = {
         { to: '/admin/users', label: 'Users', Icon: Users },
         { to: '/admin/leaves', label: 'All Leaves', Icon: BarChart3 },
         { to: '/admin/approvals', label: 'Approvals', Icon: CheckSquare },
+        { to: '/approvals/reimbursements', label: 'Expense Approvals', Icon: FileText },
+        { to: '/all-expenses', label: 'Expense History', Icon: History },
+        { to: '/admin/audit-logs', label: 'Audit Trails', Icon: History },
     ],
 };
 
 const ROLE_COLORS = {
-    admin: 'text-purple-400 bg-purple-500/10 border-purple-500/30',
-    manager: 'text-blue-400 bg-blue-500/10 border-blue-500/30',
-    employee: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
+    admin: 'from-purple-500 to-indigo-600',
+    manager: 'from-blue-500 to-indigo-600',
+    finance: 'from-amber-500 to-orange-600',
+    employee: 'from-emerald-500 to-teal-600',
 };
 
 const Sidebar = ({ open, onClose }) => {
     const { user, logout } = useAuth();
     const { totalUnread } = useChat();
+    const { theme, toggleTheme } = useTheme();
     const navigate = useNavigate();
     const navItems = ROLE_NAV[user?.role] || [];
 
@@ -69,27 +91,27 @@ const Sidebar = ({ open, onClose }) => {
             {/* Sidebar panel */}
             <aside
                 className={`
-                    fixed inset-y-0 left-0 z-30 w-64 bg-slate-900 border-r border-slate-800 flex flex-col
+                    fixed inset-y-0 left-0 z-30 w-64 bg-sidebar border-r border-main flex flex-col
                     transform transition-transform duration-300 ease-in-out
                     ${open ? 'translate-x-0' : '-translate-x-full'}
                     lg:relative lg:translate-x-0 lg:z-auto
                 `}
             >
                 {/* Logo */}
-                <div className="px-6 py-5 border-b border-slate-800 flex items-center justify-between">
+                <div className="px-6 py-5 border-b border-main flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                        <div className="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                        <div className="h-8 w-8 rounded-lg bg-accent-primary flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                             LM
                         </div>
                         <div>
-                            <p className="text-white font-bold text-sm leading-tight">LeaveMS</p>
-                            <p className="text-slate-500 text-xs">Management System</p>
+                            <p className="text-heading font-bold text-sm leading-tight">LeaveMS</p>
+                            <p className="text-muted text-xs font-medium">Management System</p>
                         </div>
                     </div>
                     {/* Close button – mobile only */}
                     <button
                         onClick={onClose}
-                        className="lg:hidden text-slate-400 hover:text-white p-1 rounded-md hover:bg-slate-800 transition-colors"
+                        className="lg:hidden text-muted hover:text-heading p-1 rounded-md hover:bg-main transition-colors"
                         aria-label="Close sidebar"
                     >
                         <X size={18} />
@@ -97,15 +119,15 @@ const Sidebar = ({ open, onClose }) => {
                 </div>
 
                 {/* User info */}
-                <div className="px-4 py-4 border-b border-slate-800">
+                <div className="px-4 py-4 border-b border-main">
                     <div className="flex items-center gap-3">
                         <div className="h-9 w-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
                             {user?.name?.charAt(0).toUpperCase()}
                         </div>
                         <div className="min-w-0">
-                            <p className="text-slate-100 font-medium text-sm truncate">{user?.name}</p>
-                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${ROLE_COLORS[user?.role]}`}>
-                                {user?.role?.charAt(0).toUpperCase() + user?.role?.slice(1)}
+                            <p className="text-primary font-medium text-sm truncate">{user?.name}</p>
+                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${ROLE_COLORS[user?.role]}`}>
+                                {user?.role}
                             </span>
                         </div>
                     </div>
@@ -136,8 +158,24 @@ const Sidebar = ({ open, onClose }) => {
                     ))}
                 </nav>
 
-                {/* Logout */}
-                <div className="p-3 border-t border-slate-800">
+                {/* Theme Toggle & Logout */}
+                <div className="p-3 border-t border-main space-y-1">
+                    <button
+                        onClick={toggleTheme}
+                        className="sidebar-link w-full text-muted hover:text-heading group"
+                    >
+                        <div className="flex items-center gap-3">
+                            {theme === 'light' ? (
+                                <>
+                                    <Moon size={16} /> Dark Mode
+                                </>
+                            ) : (
+                                <>
+                                    <Sun size={16} /> Light Mode
+                                </>
+                            )}
+                        </div>
+                    </button>
                     <button
                         onClick={handleLogout}
                         className="sidebar-link w-full text-rose-400 hover:text-rose-300 hover:bg-rose-500/10"

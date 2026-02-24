@@ -39,17 +39,17 @@ const ChatPage = () => {
     return (
         <div className="page-content h-[calc(100vh-140px)] flex flex-col">
             <div className="mb-6">
-                <h1 className="text-2xl font-bold text-white">Chat Messages</h1>
-                <p className="text-slate-400 text-sm">
+                <h1 className="text-2xl font-bold text-heading">Chat Messages</h1>
+                <p className="text-secondary text-sm">
                     {user?.role === 'admin' ? 'Real-time communication with employees' : 'Real-time communication with admins'}
                 </p>
             </div>
 
-            <div className="flex-1 bg-slate-800 border border-slate-700 rounded-2xl shadow-xl overflow-hidden flex">
+            <div className="flex-1 bg-card border border-main rounded-2xl shadow-xl overflow-hidden flex">
                 {/* Sidebar / Inbox */}
-                <div className={`w-full md:w-80 border-r border-slate-700 flex flex-col ${selectedPartner ? 'hidden md:flex' : 'flex'}`}>
-                    <div className="p-4 border-b border-slate-700 bg-slate-900/50">
-                        <h2 className="text-sm font-semibold text-white">
+                <div className={`w-full md:w-80 border-r border-main flex flex-col ${selectedPartner ? 'hidden md:flex' : 'flex'}`}>
+                    <div className="p-4 border-b border-main bg-main/50">
+                        <h2 className="text-sm font-semibold text-heading">
                             {user?.role === 'admin' ? 'Conversations' : 'Available Admins'}
                         </h2>
                     </div>
@@ -62,14 +62,14 @@ const ChatPage = () => {
                                     <button
                                         key={admin._id}
                                         onClick={() => setSelectedPartner(admin)}
-                                        className={`flex items-center gap-3 px-4 py-3.5 hover:bg-slate-700/40 transition-colors text-left w-full ${selectedPartner?._id === admin._id ? 'bg-slate-700/60 border-l-2 border-indigo-500' : ''}`}
+                                        className={`flex items-center gap-3 px-4 py-3.5 hover:bg-main transition-colors text-left w-full ${selectedPartner?._id === admin._id ? 'bg-main border-l-2 border-accent-primary' : ''}`}
                                     >
                                         <div className="h-9 w-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-sm font-semibold">
                                             {admin.name?.charAt(0).toUpperCase()}
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-sm font-medium text-slate-100 truncate">{admin.name}</p>
-                                            <p className="text-xs text-slate-400 truncate">Admin Support</p>
+                                            <p className="text-sm font-medium text-primary truncate">{admin.name}</p>
+                                            <p className="text-xs text-muted truncate">Admin Support</p>
                                         </div>
                                     </button>
                                 ))}
@@ -92,9 +92,9 @@ const ChatPage = () => {
                             onBack={() => setSelectedPartner(null)}
                         />
                     ) : (
-                        <div className="flex-1 flex flex-col items-center justify-center text-slate-500 gap-3">
-                            <div className="h-16 w-16 rounded-full bg-slate-700/50 flex items-center justify-center">
-                                <MessageCircle size={32} className="text-slate-600" />
+                        <div className="flex-1 flex flex-col items-center justify-center text-muted gap-3">
+                            <div className="h-16 w-16 rounded-full bg-main flex items-center justify-center">
+                                <MessageCircle size={32} className="text-muted" />
                             </div>
                             <p>Select a {user?.role === 'admin' ? 'conversation' : 'admin'} to start chatting</p>
                         </div>

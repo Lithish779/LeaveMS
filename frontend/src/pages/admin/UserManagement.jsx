@@ -4,11 +4,12 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import toast from 'react-hot-toast';
 import { Users, Edit2, Trash2, Check, X } from 'lucide-react';
 
-const ROLES = ['employee', 'manager', 'admin'];
+const ROLES = ['employee', 'manager', 'admin', 'finance'];
 const ROLE_COLORS = {
-    admin: 'text-purple-400 bg-purple-500/10 border-purple-500/20',
-    manager: 'text-blue-400 bg-blue-500/10 border-blue-500/20',
-    employee: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
+    admin: 'text-purple-600 dark:text-purple-400 bg-purple-500/10 border-purple-500/20',
+    manager: 'text-blue-600 dark:text-blue-400 bg-blue-500/10 border-blue-500/20',
+    finance: 'text-amber-600 dark:text-amber-400 bg-amber-500/10 border-amber-500/20',
+    employee: 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
 };
 
 const UserManagement = () => {
@@ -75,10 +76,10 @@ const UserManagement = () => {
     return (
         <div className="p-6 space-y-6">
             <div>
-                <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                    <Users size={22} className="text-indigo-400" /> User Management
+                <h1 className="text-2xl font-bold text-heading flex items-center gap-2">
+                    <Users size={22} className="text-blue-500" /> User Management
                 </h1>
-                <p className="text-slate-400 mt-0.5">{users.length} registered users</p>
+                <p className="text-secondary mt-0.5">{users.length} registered users</p>
             </div>
 
             {loading ? <LoadingSpinner /> : (
@@ -86,25 +87,25 @@ const UserManagement = () => {
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead>
-                                <tr className="border-b border-slate-800">
-                                    <th className="text-left text-slate-400 font-semibold px-5 py-3.5">User</th>
-                                    <th className="text-left text-slate-400 font-semibold px-4 py-3.5">Role</th>
-                                    <th className="text-left text-slate-400 font-semibold px-4 py-3.5 hidden sm:table-cell">Department</th>
-                                    <th className="text-left text-slate-400 font-semibold px-4 py-3.5 hidden md:table-cell">Status</th>
-                                    <th className="text-right text-slate-400 font-semibold px-5 py-3.5">Actions</th>
+                                <tr className="border-b border-main">
+                                    <th className="text-left text-secondary font-semibold px-5 py-3.5">User</th>
+                                    <th className="text-left text-secondary font-semibold px-4 py-3.5">Role</th>
+                                    <th className="text-left text-secondary font-semibold px-4 py-3.5 hidden sm:table-cell">Department</th>
+                                    <th className="text-left text-secondary font-semibold px-4 py-3.5 hidden md:table-cell">Status</th>
+                                    <th className="text-right text-secondary font-semibold px-5 py-3.5">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-800/60">
+                            <tbody className="divide-y divide-main">
                                 {users.map((user) => (
-                                    <tr key={user._id} className="hover:bg-slate-800/30 transition-colors">
+                                    <tr key={user._id} className="hover:bg-main transition-colors">
                                         <td className="px-5 py-4">
                                             <div className="flex items-center gap-3">
                                                 <div className="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
                                                     {user.name.charAt(0).toUpperCase()}
                                                 </div>
                                                 <div>
-                                                    <p className="text-slate-100 font-medium">{user.name}</p>
-                                                    <p className="text-slate-500 text-xs">{user.email}</p>
+                                                    <p className="text-user-name font-medium">{user.name}</p>
+                                                    <p className="text-muted text-xs">{user.email}</p>
                                                 </div>
                                             </div>
                                         </td>
@@ -113,7 +114,7 @@ const UserManagement = () => {
                                                 <select
                                                     value={editForm.role}
                                                     onChange={(e) => setEditForm({ ...editForm, role: e.target.value })}
-                                                    className="bg-slate-800 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                                                    className="bg-input border border-main text-primary text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500"
                                                 >
                                                     {ROLES.map((r) => <option key={r} value={r}>{r}</option>)}
                                                 </select>
@@ -128,18 +129,18 @@ const UserManagement = () => {
                                                 <input
                                                     value={editForm.department}
                                                     onChange={(e) => setEditForm({ ...editForm, department: e.target.value })}
-                                                    className="bg-slate-800 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1.5 w-28 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                                                    className="bg-input border border-main text-primary text-xs rounded-lg px-2 py-1.5 w-28 focus:outline-none focus:ring-1 focus:ring-blue-500"
                                                 />
                                             ) : (
-                                                <span className="text-slate-400 text-xs">{user.department}</span>
+                                                <span className="text-secondary text-xs">{user.department}</span>
                                             )}
                                         </td>
                                         <td className="px-4 py-4 hidden md:table-cell">
                                             <button
                                                 onClick={() => toggleActive(user)}
                                                 className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border transition-colors ${user.isActive
-                                                        ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20 hover:bg-rose-500/10 hover:text-rose-400 hover:border-rose-500/20'
-                                                        : 'text-rose-400 bg-rose-500/10 border-rose-500/20 hover:bg-emerald-500/10 hover:text-emerald-400 hover:border-emerald-500/20'
+                                                    ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20 hover:bg-rose-500/10 hover:text-rose-600 dark:hover:text-rose-400'
+                                                    : 'text-rose-600 dark:text-rose-400 bg-rose-500/10 border-rose-500/20 hover:bg-emerald-500/10 hover:text-emerald-600 dark:hover:text-emerald-400'
                                                     }`}
                                                 title={user.isActive ? 'Click to deactivate' : 'Click to activate'}
                                             >
@@ -159,10 +160,10 @@ const UserManagement = () => {
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <button onClick={() => startEdit(user)} className="text-slate-500 hover:text-indigo-400 p-1.5 rounded-lg hover:bg-indigo-500/10 transition-colors" title="Edit">
+                                                        <button onClick={() => startEdit(user)} className="text-secondary hover:text-blue-500 p-1.5 rounded-lg hover:bg-blue-500/10 transition-colors" title="Edit">
                                                             <Edit2 size={15} />
                                                         </button>
-                                                        <button onClick={() => deleteUser(user._id)} className="text-slate-500 hover:text-rose-400 p-1.5 rounded-lg hover:bg-rose-500/10 transition-colors" title="Delete">
+                                                        <button onClick={() => deleteUser(user._id)} className="text-secondary hover:text-rose-500 p-1.5 rounded-lg hover:bg-rose-500/10 transition-colors" title="Delete">
                                                             <Trash2 size={15} />
                                                         </button>
                                                     </>

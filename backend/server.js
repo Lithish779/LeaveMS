@@ -34,6 +34,8 @@ const io = new Server(server, {
     pingInterval: 25000, // 25 seconds
 });
 
+app.set('socketio', io);
+
 // Middleware: authenticate socket connections via JWT
 io.use(async (socket, next) => {
     try {
@@ -128,6 +130,9 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/leaves', require('./routes/leaves'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/chat', require('./routes/chat'));
+app.use('/api/holidays', require('./routes/holidays'));
+app.use('/api/audit-logs', require('./routes/auditLogs'));
+app.use('/api/reimbursements', require('./routes/reimbursements'));
 
 // ─── Error Handlers ───────────────────────────────────────────────────────────
 app.use((err, req, res, next) => {
@@ -143,4 +148,8 @@ app.use((req, res) => {
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
+    // Start Cron Jobs
+    const { startAccrualJob, startCarryForwardJob } = require('./jobs/accrualJob');
+    startAccrualJob();
+    startCarryForwardJob();
 });
