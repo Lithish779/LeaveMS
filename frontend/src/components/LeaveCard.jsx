@@ -23,7 +23,7 @@ const LeaveCard = ({ leave, onCancel, showEmployee = false }) => {
                 <div className="flex-1 min-w-0">
                     {showEmployee && (
                         <div className="flex items-center gap-2 mb-2">
-                            <div className="h-7 w-7 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
+                            <div className="h-7 w-7 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
                                 {leave.employee?.name?.charAt(0).toUpperCase()}
                             </div>
                             <div>

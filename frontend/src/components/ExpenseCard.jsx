@@ -82,12 +82,12 @@ const ExpenseCard = ({ reimbursement, onPreviewReceipt }) => {
                             <div className="flex items-start gap-3">
                                 <div className={`mt-1 h-2 w-2 rounded-full ${reimbursement.financeApproval.approved ? 'bg-emerald-500' : 'bg-rose-500'}`} />
                                 <div>
-                                    <p className="text-xs text-white font-medium">
+                                    <p className="text-xs text-blue-500 font-medium">
                                         Finance {reimbursement.financeApproval.approved ? 'Approved' : 'Rejected'}
                                         <span className="text-slate-500 text-[10px] ml-2">by {reimbursement.financeApproval.approvedBy?.name}</span>
                                     </p>
                                     {reimbursement.financeApproval.comment && (
-                                        <p className="text-slate-400 text-[11px] mt-0.5 italic">"{reimbursement.financeApproval.comment}"</p>
+                                        <p className="text-blue-400 text-[11px] mt-0.5 italic">"{reimbursement.financeApproval.comment}"</p>
                                     )}
                                 </div>
                             </div>

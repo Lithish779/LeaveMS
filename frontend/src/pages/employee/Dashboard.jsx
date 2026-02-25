@@ -10,9 +10,9 @@ import { Link } from 'react-router-dom';
 
 const StatCard = ({ label, value, color }) => (
     <div className={`p-5 rounded-2xl shadow-sm flex flex-col justify-between h-32 ${color}`}>
-        <p className="text-white/80 text-sm font-medium">{label}</p>
+        <p className="text-white-800 text-sm font-medium">{label}</p>
         <div className="flex items-end justify-between">
-            <p className="text-4xl font-bold text-white">{value}</p>
+            <p className="text-4xl font-bold text-white-400">{value}</p>
             <div className="h-10 w-10 bg-white/20 rounded-lg flex items-center justify-center">
                 {label.includes('Pending') ? <Clock size={20} className="text-white" /> :
                     label.includes('Approved') ? <CheckCircle size={20} className="text-white" /> :

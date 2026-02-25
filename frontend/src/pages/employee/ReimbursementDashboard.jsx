@@ -76,7 +76,7 @@ const ReimbursementDashboard = () => {
             </div>
 
             <div className="card">
-                <h2 className="text-lg font-semibold text-white mb-4">Recent Claims</h2>
+                <h2 className="text-lg font-semibold text-heading mb-4">Recent Claims</h2>
                 {loading ? (
                     <LoadingSpinner />
                 ) : reimbursements.length === 0 ? (
@@ -88,7 +88,7 @@ const ReimbursementDashboard = () => {
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
                             <thead>
-                                <tr className="text-slate-500 text-sm border-b border-slate-700/50">
+                                <tr className="text-secondary text-sm border-b border-main">
                                     <th className="pb-3 pl-2">Title</th>
                                     <th className="pb-3">Date</th>
                                     <th className="pb-3">Items</th>
@@ -97,19 +97,19 @@ const ReimbursementDashboard = () => {
                                     <th className="pb-3"></th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-700/30">
+                            <tbody className="divide-y divide-main">
                                 {reimbursements.map((r) => (
-                                    <tr key={r._id} className="group hover:bg-slate-700/20 transition-colors">
+                                    <tr key={r._id} className="group hover:bg-main transition-colors">
                                         <td className="py-4 pl-2">
-                                            <p className="text-white font-medium">{r.title}</p>
+                                            <p className="text-primary font-medium">{r.title}</p>
                                         </td>
-                                        <td className="py-4 text-slate-400 text-sm">
+                                        <td className="py-4 text-secondary text-sm">
                                             {new Date(r.createdAt).toLocaleDateString()}
                                         </td>
-                                        <td className="py-4 text-slate-400 text-sm">
+                                        <td className="py-4 text-secondary text-sm">
                                             {r.items.length} item(s)
                                         </td>
-                                        <td className="py-4 font-semibold text-white">
+                                        <td className="py-4 font-semibold text-primary">
                                             ₹{(parseFloat(r.totalAmount) || 0).toLocaleString()}
                                         </td>
                                         <td className="py-4">
@@ -122,7 +122,7 @@ const ReimbursementDashboard = () => {
                                                 {r.status === 'Draft' && (
                                                     <Link
                                                         to={`/reimbursements/edit/${r._id}`}
-                                                        className="p-1.5 text-slate-500 hover:text-indigo-400 hover:bg-slate-700/50 rounded-lg transition-all"
+                                                        className="p-1.5 text-muted hover:text-indigo-600 hover:bg-main rounded-lg transition-all"
                                                         title="Edit Draft"
                                                     >
                                                         <Plus size={16} className="rotate-45" />
@@ -131,13 +131,13 @@ const ReimbursementDashboard = () => {
                                                 {r.items.some(i => i.receiptUrl) && (
                                                     <button
                                                         onClick={() => setPreviewUrl(r.items.find(i => i.receiptUrl).receiptUrl)}
-                                                        className="p-1.5 text-slate-500 hover:text-indigo-400 hover:bg-slate-700/50 rounded-lg transition-all"
+                                                        className="p-1.5 text-muted hover:text-indigo-600 hover:bg-main rounded-lg transition-all"
                                                         title="Quick View Receipt"
                                                     >
                                                         <FileText size={16} />
                                                     </button>
                                                 )}
-                                                <button className="p-1.5 text-slate-500 hover:text-indigo-400 hover:bg-slate-700/50 rounded-lg transition-all">
+                                                <button className="p-1.5 text-muted hover:text-indigo-600 hover:bg-main rounded-lg transition-all">
                                                     <ChevronRight size={18} />
                                                 </button>
                                             </div>

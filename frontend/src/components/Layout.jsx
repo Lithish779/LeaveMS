@@ -16,7 +16,7 @@ const Layout = () => {
                 <header className="lg:hidden sticky top-0 z-10 flex items-center gap-3 px-4 py-3 bg-card backdrop-blur border-b border-slate-800">
                     <button
                         onClick={() => setSidebarOpen(true)}
-                        className="text-slate-400 hover:text-white p-1.5 rounded-md hover:bg-slate-800 transition-colors"
+                        className="text-slate-500 hover:text-white p-1.5 rounded-md hover:bg-slate-800 transition-colors"
                         aria-label="Open sidebar"
                     >
                         <Menu size={20} />
