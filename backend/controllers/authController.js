@@ -96,6 +96,9 @@ const login = async (req, res) => {
     }
 };
 
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
 // @desc    Get logged-in user profile
 // @route   GET /api/auth/me
 // @access  Private
@@ -107,8 +110,71 @@ const getMe = async (req, res) => {
             email: req.user.email,
             role: req.user.role,
             department: req.user.department,
+            avatar: req.user.avatar,
         },
     });
 };
 
-module.exports = { register, login, getMe };
+// @desc    Google Login
+// @route   POST /api/auth/google
+// @access  Public
+const googleLogin = async (req, res) => {
+    const { idToken } = req.body;
+
+    try {
+        const ticket = await client.verifyIdToken({
+            idToken,
+            audience: process.env.GOOGLE_CLIENT_ID,
+        });
+
+        const { name, email, picture, sub: googleId } = ticket.getPayload();
+
+        let user = await User.findOne({
+            $or: [
+                { googleId },
+                { email: email.toLowerCase() }
+            ]
+        });
+
+        if (!user) {
+            // Register new user
+            user = await User.create({
+                name,
+                email: email.toLowerCase(),
+                googleId,
+                avatar: picture,
+                role: 'employee',
+                department: 'General',
+                isActive: true
+            });
+        } else if (!user.googleId) {
+            // Link existing user to Google ID
+            user.googleId = googleId;
+            user.avatar = picture;
+            await user.save();
+        }
+
+        if (!user.isActive) {
+            return res.status(401).json({ message: 'Account has been deactivated' });
+        }
+
+        const token = generateToken(user._id);
+
+        res.json({
+            token,
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                department: user.department,
+                avatar: user.avatar,
+            },
+        });
+    } catch (error) {
+        console.error('Google Auth Error:', error);
+        res.status(401).json({ message: 'Invalid Google token' });
+    }
+};
+
+module.exports = { register, login, getMe, googleLogin };

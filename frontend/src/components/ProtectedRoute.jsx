@@ -7,7 +7,7 @@ const ProtectedRoute = ({ children }) => {
     const { isAuthenticated, loading } = useAuth();
 
     if (loading) return <LoadingSpinner fullScreen />;
-    // if (!isAuthenticated) return <Navigate to="/login" replace />;
+    if (!isAuthenticated) return <Navigate to="/login" replace />;
 
     return children;
 };
@@ -17,7 +17,7 @@ export const RoleRoute = ({ children, roles }) => {
     const { user, loading } = useAuth();
 
     if (loading) return <LoadingSpinner fullScreen />;
-    // if (!user) return <Navigate to="/login" replace />;
+    if (!user) return <Navigate to="/login" replace />;
     if (!roles.includes(user.role)) {
         // Redirect to their appropriate dashboard
         const dashMap = { admin: '/admin', manager: '/manager', employee: '/dashboard' };

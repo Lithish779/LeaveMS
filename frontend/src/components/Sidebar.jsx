@@ -121,9 +121,17 @@ const Sidebar = ({ open, onClose }) => {
                 {/* User info */}
                 <div className="px-4 py-4 border-b border-main">
                     <div className="flex items-center gap-3">
-                        <div className="h-9 w-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
-                            {user?.name?.charAt(0).toUpperCase()}
-                        </div>
+                        {user?.avatar ? (
+                            <img
+                                src={user.avatar}
+                                alt={user.name}
+                                className="h-9 w-9 rounded-full object-cover border border-main"
+                            />
+                        ) : (
+                            <div className="h-9 w-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
+                                {user?.name?.charAt(0).toUpperCase()}
+                            </div>
+                        )}
                         <div className="min-w-0">
                             <p className="text-primary font-medium text-sm truncate">{user?.name}</p>
                             <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${ROLE_COLORS[user?.role]}`}>

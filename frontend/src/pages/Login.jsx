@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
 import { LogIn, Eye, EyeOff } from 'lucide-react';
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
     const { login } = useAuth();
@@ -25,6 +26,21 @@ const Login = () => {
             navigate(dashMap[data.user.role] || '/dashboard');
         } catch (err) {
             toast.error(err.response?.data?.message || 'Login failed');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleGoogleSuccess = async (response) => {
+        setLoading(true);
+        try {
+            const { data } = await api.post('/auth/google', { idToken: response.credential });
+            login(data);
+            toast.success(`Welcome back, ${data.user.name}!`);
+            const dashMap = { admin: '/admin', manager: '/manager', employee: '/dashboard' };
+            navigate(dashMap[data.user.role] || '/dashboard');
+        } catch (err) {
+            toast.error(err.response?.data?.message || 'Google Login failed');
         } finally {
             setLoading(false);
         }
@@ -91,6 +107,21 @@ const Login = () => {
                             {loading ? 'Signing in...' : 'Sign In'}
                         </button>
                     </form>
+
+                    <div className="my-6 flex items-center">
+                        <div className="flex-1 border-t border-slate-700"></div>
+                        <span className="px-3 text-slate-500 text-sm uppercase tracking-wider">or</span>
+                        <div className="flex-1 border-t border-slate-700"></div>
+                    </div>
+
+                    <div className="flex justify-center">
+                        <GoogleLogin
+                            onSuccess={handleGoogleSuccess}
+                            onError={() => toast.error('Google Login Failed')}
+                            theme="filled_black"
+                            width="100%"
+                        />
+                    </div>
 
                     <p className="mt-5 text-center text-slate-400 text-sm">
                         No account?{' '}
