@@ -119,7 +119,7 @@ const Login = () => {
                             onSuccess={handleGoogleSuccess}
                             onError={() => toast.error('Google Login Failed')}
                             theme="filled_black"
-                            width="100%"
+                            width="250"
                         />
                     </div>
 

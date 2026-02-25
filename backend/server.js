@@ -22,6 +22,7 @@ const ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'https://leave-ms-nu9k.vercel.app',
     "https://leave-ms-nu9k-5z262a6px-lithishs-projects-8d793466.vercel.app",
+    'https://leave-ms-9smf.vercel.app',
 ];
 
 // ─── Express Middleware ────────────────────────────────────────────────────────
