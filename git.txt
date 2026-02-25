@@ -1,0 +1,5 @@
+git status;
+git add .;
+git commit -m "feat: <updated about>";
+git push;
+git push origin HEAD:main
