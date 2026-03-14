@@ -125,8 +125,8 @@ npm install
 npm run dev
 ```
 
-Frontend runs at: **http://localhost:5173**
-Backend API at: **http://localhost:5000/api**
+
+Website runs  at: **https://leave-ms-cyan.vercel.app/**
 
 ---
 
