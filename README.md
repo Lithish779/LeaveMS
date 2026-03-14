@@ -1,22 +1,46 @@
-# 🏢 Employee Leave Management System
+<h1 align="center">🏢 Employee Leave Management System</h1>
 
-A full-stack HR leave management system where employees apply for leave, managers approve/reject, and admins manage users and permissions.
+<p align="center">
+  <img src=".github/assets/logo.png" width="150" alt="Employee Leave MS Logo">
+</p>
+
+<p align="center">
+  <i>Simplify, Track, and Manage HR Leave Operations with Ease and Precision.</i>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Deployment-Live-success?style=for-the-badge&logo=vercel" alt="Deployment">
+  <img src="https://img.shields.io/badge/Version-1.0.0-blue?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License">
+</p>
 
 ---
 
-## 🚀 Tech Stack
+## 🚀 Languages and Tools...
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React 18 + Vite + Tailwind CSS |
-| Routing | React Router v7 |
-| State | Context API + LocalStorage |
-| Backend | Node.js + Express |
-| Database | MongoDB + Mongoose |
-| Auth | JWT (JSON Web Tokens) |
-| Charts | Chart.js + react-chartjs-2 |
-| Icons | Lucide React |
-| Toasts | React Hot Toast |
+<p align="left">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js">
+  <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js">
+  <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB">
+</p>
+
+<p align="left">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind">
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
+  <img src="https://img.shields.io/badge/Lucide-2C3E50?style=for-the-badge&logo=lucide&logoColor=white" alt="Lucide">
+</p>
+
+<p align="left">
+  <img src="https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=socket.io&logoColor=white" alt="Socket.io">
+  <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white" alt="JWT">
+  <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" alt="Postman">
+  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git">
+  <img src="https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white" alt="NPM">
+</p>
 
 ---
 
