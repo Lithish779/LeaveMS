@@ -27,6 +27,9 @@ router.post(
 );
 
 router.get('/me', protect, getMe);
-router.post('/google', [body('idToken').notEmpty().withMessage('Google ID Token is required')], googleLogin);
+router.post('/google', [
+    body('idToken').optional().notEmpty().withMessage('Google ID Token is required'),
+    body('credential').optional().notEmpty().withMessage('Credential is required'),
+], googleLogin);
 
 module.exports = router;

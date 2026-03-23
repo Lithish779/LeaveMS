@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -17,6 +18,14 @@
     --sidebar-link-text: #020617;
     --accent-blue: #2563eb;
     --text-user-name: #2563eb;
+    
+    /* Premium Dashboard Tokens */
+    --accent-indigo: #6C63FF;
+    --bg-obsidian: #0A0B0F;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text-premium-light: #F0F0F5;
+    --text-premium-muted: #6B7280;
 
     /* Stat Card Colors (Light Mode) */
     --stat-card-bg-1: #ff7675;
@@ -382,4 +391,60 @@
     color: var(--badge-paternity-text);
     border-color: var(--badge-paternity-border);
   }
-}
+
+  /* Redesigned Login Styles */
+  .login-container {
+    @apply grid grid-cols-1 lg:grid-cols-2 min-h-[600px] w-full max-w-5xl bg-[#1e293b] rounded-3xl overflow-hidden shadow-2xl;
+  }
+
+  .login-left {
+    @apply hidden lg:block bg-cover bg-center h-full relative;
+    background-image: url('/login-bg-texture.png');
+  }
+
+  .login-right {
+    @apply flex flex-col p-10 md:p-14 text-white;
+  }
+
+  .login-tab-container {
+    @apply flex gap-8 mb-10 text-lg font-medium;
+  }
+
+  .login-tab-active {
+    @apply text-white border-b-2 border-sky-400 pb-1;
+  }
+
+  .login-tab-inactive {
+    @apply text-slate-500 hover:text-slate-400 transition-colors pb-1;
+  }
+
+  .login-input-group {
+    @apply mb-8;
+  }
+
+  .login-label {
+    @apply block text-sky-400 text-xs font-semibold mb-2 uppercase tracking-wider;
+  }
+
+  .login-input {
+    @apply w-full bg-transparent border-b border-slate-600 py-2 focus:border-sky-400 focus:outline-none transition-colors text-white placeholder-slate-500 font-medium;
+  }
+
+  .login-btn {
+    @apply w-full py-3.5 rounded-full font-bold text-sm tracking-widest uppercase transition-all duration-300 transform active:scale-[0.98] shadow-lg shadow-sky-500/20 flex items-center justify-center gap-3;
+    background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  }
+
+  .login-btn:hover {
+    @apply shadow-xl shadow-sky-500/40;
+    filter: brightness(1.05);
+  }
+
+  .login-footer {
+    @apply mt-auto flex justify-center gap-6 text-[10px] text-slate-500 uppercase tracking-widest font-bold;
+  }
+
+  .login-footer-link {
+    @apply hover:text-slate-300 transition-colors cursor-pointer;
+  }
+}

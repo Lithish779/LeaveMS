@@ -9,15 +9,13 @@ import {
     Users,
     CheckSquare,
     LogOut,
-    BarChart3,
-    X,
     MessageCircle,
-    CalendarDays, // Added
-    History,      // Added
-    IndianRupee,  // Added
-    FileText,    // Added
+    History,
+    IndianRupee,
+    FileText,
     Sun,
     Moon,
+    X,
 } from 'lucide-react';
 
 const ROLE_NAV = {
@@ -34,7 +32,6 @@ const ROLE_NAV = {
         { to: '/approvals/reimbursements', label: 'Expense Approvals', Icon: FileText },
         { to: '/all-expenses', label: 'Expense History', Icon: History },
         { to: '/manager/all-leaves', label: 'All Leaves', Icon: ClipboardList },
-        { to: '/manager/calendar', label: 'Team Calendar', Icon: CalendarDays },
     ],
     finance: [
         { to: '/dashboard', label: 'My Dashboard', Icon: LayoutDashboard },
@@ -46,36 +43,19 @@ const ROLE_NAV = {
         { to: '/admin', label: 'Dashboard', Icon: LayoutDashboard },
         { to: '/chat', label: 'Chat', Icon: MessageCircle, showBadge: true },
         { to: '/admin/users', label: 'Users', Icon: Users },
-        { to: '/admin/leaves', label: 'All Leaves', Icon: BarChart3 },
-        { to: '/admin/approvals', label: 'Approvals', Icon: CheckSquare },
-        { to: '/approvals/reimbursements', label: 'Expense Approvals', Icon: FileText },
+        { to: '/admin/leaves', label: 'All Leaves', Icon: CheckSquare },
         { to: '/all-expenses', label: 'Expense History', Icon: History },
-        { to: '/admin/audit-logs', label: 'Audit Trails', Icon: History },
     ],
-};
-
-const ROLE_COLORS = {
-    admin: 'from-purple-500 to-indigo-600',
-    manager: 'from-blue-500 to-indigo-600',
-    finance: 'from-amber-500 to-orange-600',
-    employee: 'from-emerald-500 to-teal-600',
 };
 
 const Sidebar = ({ open, onClose }) => {
     const { user, logout } = useAuth();
     const { totalUnread } = useChat();
     const { theme, toggleTheme } = useTheme();
-    const navigate = useNavigate();
     const navItems = ROLE_NAV[user?.role] || [];
 
     const handleLogout = () => {
         logout();
-        // navigate('/login');
-    };
-
-    const handleNavClick = () => {
-        // Close sidebar on mobile after navigating
-        if (onClose) onClose();
     };
 
     return (
@@ -83,7 +63,7 @@ const Sidebar = ({ open, onClose }) => {
             {/* Mobile overlay */}
             {open && (
                 <div
-                    className="fixed inset-0 z-20 bg-black/60 backdrop-blur-sm lg:hidden"
+                    className="fixed inset-0 z-40 bg-black/80 backdrop-blur-md lg:hidden"
                     onClick={onClose}
                 />
             )}
@@ -91,105 +71,95 @@ const Sidebar = ({ open, onClose }) => {
             {/* Sidebar panel */}
             <aside
                 className={`
-                    fixed inset-y-0 left-0 z-30 w-64 bg-sidebar border-r border-main flex flex-col
-                    transform transition-transform duration-300 ease-in-out
+                    fixed inset-y-0 left-0 z-50 w-72 glass-panel border-r border-white/10 flex flex-col
+                    transform transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]
                     ${open ? 'translate-x-0' : '-translate-x-full'}
                     lg:relative lg:translate-x-0 lg:z-auto
+                    custom-scrollbar overflow-y-auto
                 `}
             >
-                {/* Logo */}
-                <div className="px-6 py-5 border-b border-main flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                        <div className="h-8 w-8 rounded-lg bg-accent-primary flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
-                            LM
+                {/* Logo Section */}
+                <div className="px-8 py-10 flex items-center justify-between">
+                    <div className="flex items-center gap-4 group">
+                        <div className="relative">
+                            <div className="absolute -inset-1 bg-indigo-500 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
+                            <div className="relative h-12 w-12 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center text-white font-black text-xl shadow-2xl shadow-indigo-500/20">
+                                LM
+                            </div>
                         </div>
-                        <div>
-                            <p className="text-heading font-bold text-sm leading-tight">LeaveMS</p>
-                            <p className="text-muted text-xs font-medium">Management System</p>
+                        <div className="flex flex-col">
+                            <span className="text-white font-display font-bold text-lg tracking-tight leading-none">LeaveMS</span>
+                            <span className="text-indigo-400 font-mono-refined text-[10px] uppercase tracking-widest mt-1">Enterprise UI</span>
                         </div>
                     </div>
-                    {/* Close button – mobile only */}
-                    <button
-                        onClick={onClose}
-                        className="lg:hidden text-muted hover:text-heading p-1 rounded-md hover:bg-main transition-colors"
-                        aria-label="Close sidebar"
-                    >
-                        <X size={18} />
+                    <button onClick={onClose} className="lg:hidden text-slate-400 hover:text-white p-2">
+                        <X size={20} />
                     </button>
                 </div>
 
-                {/* User info */}
-                <div className="px-4 py-4 border-b border-main">
-                    <div className="flex items-center gap-3">
-                        {user?.avatar ? (
-                            <img
-                                src={user.avatar}
-                                alt={user.name}
-                                className="h-9 w-9 rounded-full object-cover border border-main"
-                            />
-                        ) : (
-                            <div className="h-9 w-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
-                                {user?.name?.charAt(0).toUpperCase()}
+                {/* User Profile Section */}
+                <div className="px-6 mb-8">
+                    <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 relative group overflow-hidden">
+                        <div className="absolute -inset-4 bg-indigo-500/5 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                        <div className="flex items-center gap-4 relative">
+                            {user?.avatar ? (
+                                <img src={user.avatar} className="h-11 w-11 rounded-full border border-white/10 ring-4 ring-indigo-500/5" alt="" />
+                            ) : (
+                                <div className="h-11 w-11 rounded-full bg-gradient-to-tr from-slate-800 to-slate-700 border border-white/10 flex items-center justify-center text-white font-bold text-sm">
+                                    {user?.name?.charAt(0)}
+                                </div>
+                            )}
+                            <div className="min-w-0">
+                                <p className="text-white font-semibold text-sm truncate tracking-tight">{user?.name}</p>
+                                <span className="shimmer-pill mt-1 inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-tighter bg-indigo-500 text-white shadow-lg shadow-indigo-500/20">
+                                    {user?.role === 'employee' ? 'Employee' : user?.role}
+                                </span>
                             </div>
-                        )}
-                        <div className="min-w-0">
-                            <p className="text-primary font-medium text-sm truncate">{user?.name}</p>
-                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${ROLE_COLORS[user?.role]}`}>
-                                {user?.role}
-                            </span>
                         </div>
                     </div>
                 </div>
 
-                {/* Nav links */}
-                <nav className="flex-1 px-3 py-4 space-y-1">
+                {/* Navigation Links */}
+                <nav className="flex-1 px-4 space-y-1.5 mb-8">
                     {navItems.map(({ to, label, Icon, showBadge }) => (
                         <NavLink
                             key={to}
                             to={to}
                             end={to.split('/').length <= 2}
-                            onClick={handleNavClick}
-                            className={({ isActive }) =>
-                                `sidebar-link ${isActive ? 'sidebar-link-active' : ''} flex items-center justify-between group`
-                            }
+                            onClick={() => { if (onClose) onClose(); }}
+                            className={({ isActive }) => `
+                                group flex items-center justify-between px-4 py-3.5 rounded-xl transition-all duration-300
+                                ${isActive 
+                                    ? 'bg-indigo-500/10 text-white border-l-2 border-indigo-500' 
+                                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]'}
+                            `}
                         >
-                            <div className="flex items-center gap-3">
-                                <Icon size={16} />
-                                {label}
+                            <div className="flex items-center gap-4">
+                                <Icon size={18} className="group-hover:scale-110 transition-transform duration-300" />
+                                <span className="font-display font-medium text-sm antialiased">{label}</span>
                             </div>
                             {showBadge && totalUnread > 0 && (
-                                <span className="h-5 w-5 bg-indigo-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center border border-indigo-500 group-hover:border-indigo-400 transition-colors">
+                                <div className="h-5 min-w-5 px-1 bg-rose-500 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-lg shadow-rose-500/40">
                                     {totalUnread > 9 ? '9+' : totalUnread}
-                                </span>
+                                </div>
                             )}
                         </NavLink>
                     ))}
                 </nav>
 
-                {/* Theme Toggle & Logout */}
-                <div className="p-3 border-t border-main space-y-1">
+                {/* Bottom Footer Section */}
+                <div className="p-6 mt-auto border-t border-white/5 space-y-3">
                     <button
                         onClick={toggleTheme}
-                        className="sidebar-link w-full text-muted hover:text-heading group"
+                        className="w-full flex items-center justify-center gap-3 py-3 rounded-xl bg-white/[0.03] border border-white/5 text-slate-400 hover:text-white hover:bg-white/[0.05] transition-all font-display text-xs font-semibold"
                     >
-                        <div className="flex items-center gap-3">
-                            {theme === 'light' ? (
-                                <>
-                                    <Moon size={16} /> Dark Mode
-                                </>
-                            ) : (
-                                <>
-                                    <Sun size={16} /> Light Mode
-                                </>
-                            )}
-                        </div>
+                        {theme === 'light' ? <><Moon size={14} /> Dark View</> : <><Sun size={14} /> Light View</>}
                     </button>
                     <button
                         onClick={handleLogout}
-                        className="sidebar-link w-full text-rose-400 hover:text-rose-300 hover:bg-rose-500/10"
+                        className="w-full flex items-center justify-center gap-3 py-3 rounded-xl bg-rose-500/5 border border-rose-500/10 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 transition-all font-display text-xs font-semibold uppercase tracking-widest"
                     >
-                        <LogOut size={16} />
-                        Logout
+                        <LogOut size={14} /> Sign Out
                     </button>
                 </div>
             </aside>

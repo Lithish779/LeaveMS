@@ -1,6 +1,9 @@
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { OAuth2Client } = require('google-auth-library');
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // Generate JWT token
 const generateToken = (id) => {
@@ -96,8 +99,6 @@ const login = async (req, res) => {
     }
 };
 
-const { OAuth2Client } = require('google-auth-library');
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // @desc    Get logged-in user profile
 // @route   GET /api/auth/me
@@ -119,11 +120,21 @@ const getMe = async (req, res) => {
 // @route   POST /api/auth/google
 // @access  Public
 const googleLogin = async (req, res) => {
-    const { idToken } = req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { idToken, credential } = req.body;
+    const tokenToVerify = idToken || credential;
+
+    if (!tokenToVerify) {
+        return res.status(400).json({ message: 'Google Token or Credential is required' });
+    }
 
     try {
         const ticket = await client.verifyIdToken({
-            idToken,
+            idToken: tokenToVerify,
             audience: process.env.GOOGLE_CLIENT_ID,
         });
 
@@ -145,12 +156,13 @@ const googleLogin = async (req, res) => {
                 avatar: picture,
                 role: 'employee',
                 department: 'General',
-                isActive: true
+                isActive: true,
+                password: Math.random().toString(36).slice(-10), // Set fallback password
             });
         } else if (!user.googleId) {
             // Link existing user to Google ID
             user.googleId = googleId;
-            user.avatar = picture;
+            if (picture) user.avatar = picture;
             await user.save();
         }
 

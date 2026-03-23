@@ -1,0 +1,134 @@
+﻿
+> frontend@0.0.0 build
+> vite build
+
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+[32mΓ£ô[39m 0 modules transformed.
+node.exe : 
+[31mΓ£ù[39m Build 
+failed in 40ms
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: ([31mΓ£ù[39m   
+  Build failed in 4    
+0ms:String) [], Re    
+moteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+[31merror during 
+build:
+[31m[vite-plugin-pwa:b
+uild] [plugin 
+vite-plugin-pwa:build] 
+index.html (10:0): 
+There was an error 
+during the build:
+  Transform failed 
+with 1 error:
+C:/Users/lithi/Download
+s/employee/frontend/src
+/main.jsx:10:0: ERROR: 
+Unexpected "<<"
+Additionally, handling 
+the error in the 
+'buildEnd' hook caused 
+the following error:
+  Transform failed 
+with 1 error:
+C:/Users/lithi/Download
+s/employee/frontend/src
+/main.jsx:10:0: ERROR: 
+Unexpected "<<"[31m
+file: [36mC:/Users/lit
+hi/Downloads/employee/f
+rontend/src/main.jsx:10
+:0 (C:/Users/lithi/Down
+loads/employee/frontend
+/index.html)[31m
+[33m
+[33mUnexpected 
+"<<"[33m
+8  |  import { 
+GoogleOAuthProvider } 
+from 
+'@react-oauth/google';
+9  |  
+10 |  <<<<<<< Updated 
+upstream
+   |  ^
+11 |  const 
+GOOGLE_CLIENT_ID = impo
+rt.meta.env.VITE_GOOGLE
+_CLIENT_ID || "YOUR_GOO
+GLE_CLIENT_ID.apps.goog
+leusercontent.com";
+12 |  =======
+[31m
+    at getRollupError (
+file:///C:/Users/lithi/
+Downloads/employee/fron
+tend/node_modules/rollu
+p/dist/es/shared/parseA
+st.js:402:41)
+    at file:///C:/Users
+/lithi/Downloads/employ
+ee/frontend/node_module
+s/rollup/dist/es/shared
+/node-entry.js:23467:39
+    at process.processT
+icksAndRejections (node
+:internal/process/task_
+queues:105:5)
+    at async catchUnfin
+ishedHookActions (file:
+///C:/Users/lithi/Downl
+oads/employee/frontend/
+node_modules/rollup/dis
+t/es/shared/node-entry.
+js:22925:16)
+    at async 
+rollupInternal (file://
+/C:/Users/lithi/Downloa
+ds/employee/frontend/no
+de_modules/rollup/dist/
+es/shared/node-entry.js
+:23450:5)
+    at async 
+buildEnvironment (file:
+///C:/Users/lithi/Downl
+oads/employee/frontend/
+node_modules/vite/dist/
+node/chunks/config.js:3
+3541:12)
+    at async 
+Object.build (file:///C
+:/Users/lithi/Downloads
+/employee/frontend/node
+_modules/vite/dist/node
+/chunks/config.js:33900
+:19)
+    at async 
+Object.buildApp (file:/
+//C:/Users/lithi/Downlo
+ads/employee/frontend/n
+ode_modules/vite/dist/n
+ode/chunks/config.js:33
+897:153)
+    at async 
+CAC.<anonymous> (file:/
+//C:/Users/lithi/Downlo
+ads/employee/frontend/n
+ode_modules/vite/dist/n
+ode/cli.js:629:3)[39m

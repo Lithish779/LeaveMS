@@ -42,7 +42,9 @@ const ExpenseCard = ({ reimbursement, onPreviewReceipt }) => {
                                 <Calendar size={16} className="text-sky-500" />
                             </div>
                             <div>
-                                <p className="text-[10px] text-muted uppercase font-bold">Claim Date</p>
+                                <p className="text-[10px] text-emerald-500 uppercase font-bold">
+                                    Claim Date
+                                </p>
                                 <p className="text-primary font-bold">{formatDate(reimbursement.createdAt)}</p>
                             </div>
                         </div>

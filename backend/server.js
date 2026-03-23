@@ -3,6 +3,7 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
+const helmet = require('helmet');
 const jwt = require('jsonwebtoken');
 const connectDB = require('./config/db');
 const Message = require('./models/Message');
@@ -26,6 +27,7 @@ const ALLOWED_ORIGINS = [
 ];
 
 // ─── Express Middleware ────────────────────────────────────────────────────────
+app.use(helmet({ crossOriginOpenerPolicy: false }));
 app.use(cors({ origin: ALLOWED_ORIGINS, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
