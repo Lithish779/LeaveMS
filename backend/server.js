@@ -21,6 +21,7 @@ const ALLOWED_ORIGINS = [
     'http://localhost:5175',
     'http://localhost:5176',
     'http://localhost:3000',
+    'https://leave-ms-cyan.vercel.app',
     'https://leave-ms-nu9k.vercel.app',
     "https://leave-ms-nu9k-5z262a6px-lithishs-projects-8d793466.vercel.app",
     'https://leave-ms-9smf.vercel.app',

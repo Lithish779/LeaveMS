@@ -110,7 +110,7 @@ const Login = () => {
                                 <div className="flex-1 h-px bg-slate-800"></div>
                             </div>
 
-                            <div className="flex justify-center overflow-hidden rounded-full h-[48px]">
+                            <div className="flex justify-center overflow-hidden rounded-full">
                                 <GoogleLogin
                                     onSuccess={async (response) => {
                                         setLoading(true);
@@ -130,7 +130,6 @@ const Login = () => {
                                     theme="filled_blue"
                                     shape="pill"
                                     text="signin_with"
-                                    width="100%"
                                 />
                             </div>
                         </div>
